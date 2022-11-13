@@ -40,3 +40,7 @@ def date_differences(movies: pd.DataFrame, characters: pd.DataFrame) -> int:
 
 def keep_dates(df: pd.DataFrame, min_year: int, max_year: int) -> pd.DataFrame:
     return df[(df.Movie_Release_Date.dt.year >= min_year) & (df.Movie_Release_Date.dt.year <= max_year)].copy()
+
+def add_year_and_decade(df: pd.DataFrame):
+    df['year'] = df.Movie_Release_Date.dt.year
+    df['decade'] = df.year - (df.year % 10)
