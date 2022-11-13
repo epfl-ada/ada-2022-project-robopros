@@ -3,6 +3,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 def movie_distribution_over_time(df: pd.DataFrame):
+
+    df = df[['Wikipedia_Movie_ID', 'Movie_Release_Date', 'Movie_Countries']].drop_duplicates()
+
     fig, axes = plt.subplots(1, 2, figsize=(12,4))
     fig.suptitle('Distribution of movies over time')
 
