@@ -25,15 +25,26 @@ PLOT_SUM_COLS = ['Wikipedia_Movie_ID', 'Summary']
 TVTROPES_COLS = ['Character_Type', 'Character_Description']
 
 def character_metadata() -> pd.DataFrame:
-    return pd.read_csv(CHARACTER_META_FILE, sep='\t', names=CHARACTER_META_COLS)
+    pickle = './df_character_raw.pickle'
+    try:
+        return pd.read_pickle(pickle)
+    except:
+        df = pd.read_csv(CHARACTER_META_FILE, sep='\t', names=CHARACTER_META_COLS)
+        pd.to_pickle(df, pickle)
+        return df
 
 def movie_metadata() -> pd.DataFrame:
-    df = pd.read_csv(MOVIE_META_FILE, sep='\t', names=MOVIE_META_COLS)
-    # Explode dictionaries into separate rows
-    df = clean.explode_dict(df, 'Movie_Languages')
-    df = clean.explode_dict(df, 'Movie_Countries')
-    df = clean.explode_dict(df, 'Movie_Genres')
-    return df
+    pickle = './df_movies_raw.pickle'
+    try:
+        return pd.read_pickle(pickle)
+    except:
+        df = pd.read_csv(MOVIE_META_FILE, sep='\t', names=MOVIE_META_COLS)
+        # Explode dictionaries into separate rows
+        df = clean.explode_dict(df, 'Movie_Languages')
+        df = clean.explode_dict(df, 'Movie_Countries')
+        df = clean.explode_dict(df, 'Movie_Genres')
+        pd.to_pickle(df, pickle)
+        return df
 
 def name_clusters() -> pd.DataFrame:
     return pd.read_csv(NAME_CLUSTERS, sep='\t', names=NAME_CLUSTERS_COLS)
