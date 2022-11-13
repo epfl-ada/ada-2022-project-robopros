@@ -1,10 +1,20 @@
-# Title (TBD)
+# From Hollywood to Bollywood, an analysis of movie industries across time.
 
 Milestone 2 notebook: [notebooks/milestone2.ipynb](notebooks/milestone2.ipynb)
 
 ## Abstract
 
 ## Research questions
+
+How do the biggest movie industries (USA, UK, France, Japan, India -> SOURCE NEEDED) compare across time?
+Are they converging due to globalisation?
+Do they have very distinct themes and preferences?
+This project aims at finding the identity of the major movie industries and their evolution over time.
+
+More precisely, the following research questions will be adressed:
+- What trends do each of the movie industries have?
+- What is the diversity in each of the industries? Has it increased over time?
+- What are strong predictors of success in each of the industries?
 
 ## Additional datasets (if any)
 
