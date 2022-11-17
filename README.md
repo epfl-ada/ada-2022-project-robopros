@@ -20,9 +20,16 @@ This will give us an insight on whether the industry is converging due to global
 
 ## Research questions
 
-- Are trends in movies different across countries? And has it changed over time? (e.g. due to globalization)
-- How diverse are cast members across different countries?
-- What have been strong predictors of success in each country over different time periods?
+Our main research question is the following:
+
+*"What are the differences between the largest movie industries and how have they changed over time?"*
+
+This question can be split into two perspectives, each having their own subquestions:
+
+1. Differences in movies
+   - todo
+2. Differences in actors
+   - todo
 
 ## Additional datasets (if any)
 
