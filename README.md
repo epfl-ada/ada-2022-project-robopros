@@ -12,11 +12,11 @@ To keep the notebook clean we make use of python functions in our [src](src) fol
 
 ## Abstract
 
-Cinema has made its debute in the late 19th century [1] and has become a multibillion dollar industry, distributed over many different countries, and therefore made subject to distinct cultures and trends.
+Cinema made its debut in the late 19th century [1] and has become a multibillion-dollar industry, distributed over many different countries, and therefore made subject to distinct cultures and trends.
 Using the CMU Movie Summary Corpus, a collection of 42.306 movie plot summaries extracted from Wikipedia, aligned with movie and character metadata, we take a trip through time to take a look at these trends and how they have (or have not) differed across the world.
-We will analyze movies from some of the largest film industries - namely United States, India, United Kingdom, Japan, and France [2] - from the 1950s to 2010s.
-More specifically, we will look from two different perspectives, the movies themselves and the actors that portray in them.
-This will give us an insight on whether the industry is converging due to globalization, or if each industry is able to keep their identity.
+We will analyze movies from some of the largest film industries - namely the United States, India, United Kingdom, Japan, and France [2] - from the 1950s to the 2010s.
+More specifically, we will look from two different perspectives, the movies themselves and the actors that portray them.
+This will give us an insight into whether the industry is converging due to globalization, or if each industry can keep its identity.
 
 ## Research questions
 
@@ -24,7 +24,7 @@ Our main research question is the following:
 
 *"What are the differences between the largest movie industries and how have they changed over time?"*
 
-This question can be split into two perspectives, each having their own subquestions:
+This question can be split into two perspectives, each having its subquestions:
 
 1. Differences in movies
    - todo
@@ -33,16 +33,16 @@ This question can be split into two perspectives, each having their own subquest
 
 ## Additional datasets (if any)
 
-To quantify a movie's success across industries, we collect the IMDB rating of the movies we are interested in per industry and decade through IMDB python library that seem to be more precise and give less nones than the beautifulsoup alternative. It is possible at a later point to collect other information such as production compagny and a more detailed information on the revenue or characters.  
+To quantify a movie's success across industries, we collect the IMDB rating of the movies we are interested in per industry and decade through the IMDB python library which seems to be more precise and gives fewer nones than the beautifulsoup alternative. It is possible at a later point to collect other information such as production company and more detailed information on the revenue or characters.  
 
 ## Methods
 ### NLP 
-For the NLP task, we take the plot summaries of movies and we first embedd them using the sentence transformer model [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2). This model has of advantage that it allows to detect the semantic difference in paragraphs and is light to encode and doesn't require a lot of computation. Following, we visualize through TSNE how the summary embeddings of 2 different genres differs and if there is an overlap in order to break it slowly into subgroups that might be distincts (decade, country of movies, rating). The current results shows that there is some overlap between romance and action and will be studied more in P3, where we will be performing grouping and clustering on them. 
-We as well made a keypoint extraction pipline that has of a goal to extract the most relevant event in a summary. It works as follow: 
+For the NLP task, we take the plot summaries of movies and we first embed them using the sentence transformer model [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2). This model has of advantage, in that it allows the detection of semantic differences in paragraphs and is light to encode, and doesn't require a lot of computation. Following, we visualize through TSNE how the summary embeddings of 2 different genres differ and if there is an overlap to break it slowly into subgroups that might be distinct (decade, country of movies, rating). The current results show that there is some overlap between romance and action and will be studied more in P3, where we will be performing grouping and clustering. 
+In addition, we made a keypoint extraction pipeline that aims to extract the most relevant event in a movie. It works as follows: 
 1. Break the summary into sentences
 2. Calculate the cosine similarity between each sentence's embeddings and perform page_rank to leave the sentences with the highest similarity score.
-3. Given the sentences chosen through page_rank, we perform a filtering to get the N (set by user) sentences that are more distinguished between one another and dont cover the same topic for it to be general.
-4. Congrats. that is the main event
+3. Given the sentences chosen through page_rank, we perform filtering to get the N (set by user) sentences that are more distinguished from one another and don't cover the same topic for them to be general.
+4. Congrats. that is the main event.
 ## Proposed timeline
 
 ## Organization within the team
@@ -66,5 +66,5 @@ After activating your virtualenv in the root directory of the project install th
 ```bat
 pip install requirements.txt
 ```
-The requirement list will be updated and added along the project to make a reproducable code 
+The requirement list will be updated and added along the project to make a reproducible code 
 
