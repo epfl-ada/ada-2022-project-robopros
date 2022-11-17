@@ -12,11 +12,11 @@ To keep the notebook clean we make use of python functions in our [src](src) fol
 
 ## Abstract
 
-Cinema has made its debute in the late 19th century [1] and has become a multibillion dollar industry, distributed over many different countries, and made subject to distinct cultures and trends.
+Cinema has made its debute in the late 19th century [1] and has become a multibillion dollar industry, distributed over many different countries, and therefore made subject to distinct cultures and trends.
 Using the CMU Movie Summary Corpus, a collection of 42.306 movie plot summaries extracted from Wikipedia, aligned with movie and character metadata, we take a trip through time to take a look at these trends and how they have (or have not) differed across the world.
 We will analyze movies from some of the largest film industries - namely United States, India, United Kingdom, Japan, and France [2] - from the 1950s to 2010s.
-More specifically, we will take a dive from two different perspectives, the movies themselves and the actors that portray in them.
-We extract NLP keypoints from the movie summaries and use the movie metadata to analyze themes across industries, trends will be identified using IMDB ratings, and the character metadata allows us to give a closer look at diversity.
+More specifically, we will look from two different perspectives, the movies themselves and the actors that portray in them.
+This will give us an insight on whether the industry is converging due to globalization, or if each industry is able to keep their identity.
 
 ## Research questions
 
