@@ -1,6 +1,14 @@
 # From Hollywood to Bollywood, an analysis of movie industries across time.
 
+**Project structure (reference for grading)**
+
 Milestone 2 notebook: [notebooks/milestone2.ipynb](notebooks/milestone2.ipynb)
+
+To keep the notebook clean we make use of python functions in our [src](src) folder. For exact implementation details refer to:
+- [aggregate.py](src/aggregate.py) = functions for aggregate statistics on our dataframes (e.g. number of movies)
+- [clean.py](src/clean.py) = functions for cleaning our data
+- [load.py](src/load.py) = functions for loading the data in the appropriate dataframes
+- [plot.py](src/plot.py) = plotting function
 
 ## Abstract
 
