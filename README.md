@@ -36,6 +36,34 @@ This question can be split into two perspectives, each having its subquestions:
 To quantify a movie's success across industries, we collect the IMDB rating of the movies we are interested in per industry and decade through the IMDB python library which seems to be more precise and gives fewer nones than the beautifulsoup alternative. It is possible at a later point to collect other information such as production company and more detailed information on the revenue or characters.  
 
 ## Methods
+### Datasets
+- Dataset D1: Dataset containing information about movies
+- Dataset D2: Dataset containing information about movie characters and the corresponding actors
+  - D2.1: Subset with available actors' ages
+  - D2.2: Subset with available actors' gender
+  - D2.3: Subset with available actors' ethnicities
+  - D2.4: Subset with available actors' heights
+
+### Diversity Analysis
+Since the data contains more information from Hollywood movies than any other movie industry, the analysis has to be
+adjusted by looking at the big 5 movie industries separately and by comparing their relative numbers. The data is
+enriched with information about the decade so that the development over the years can be analyzed. The preprocessing
+steps include:
+- Removal of errors, meaning, setting age and height into meaningful ranges
+- Movies which contain flashbacks to older movies have to be filtered out as the actors are no longer active during
+the time the film was produced (they confound the data)
+- Matching of Freebase IDs to the actual term of the ethnic group; for that
+SPARQL was used to get the corresponding terms from Wikidata in form of a JSON file which could be used to map the IDs;
+Not all IDs can be matched, but were left in the dataset as the number of ethnicities can be useful for analysis
+- Gender was only divided into male and female; Creation of indicator variables for male and female
+- Visualization of the data to find inconsistencies and get first insights
+
+For continuous data like age and height the distributions and their statistics can be analyzed (e.g. mean, median).
+Categorical data like ethnicity and gender are compared with ratios.
+
+In general the data is prepared to find possible correlations later on with other gained insights e.g. success metrics
+of the movies.
+
 ### NLP 
 For the NLP task, we take the plot summaries of movies and we first embed them using the sentence transformer model [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2). This model has of advantage, in that it allows the detection of semantic differences in paragraphs and is light to encode, and doesn't require a lot of computation. Following, we visualize through TSNE how the summary embeddings of 2 different genres differ and if there is an overlap to break it slowly into subgroups that might be distinct (decade, country of movies, rating). The current results show that there is some overlap between romance and action and will be studied more in P3, where we will be performing grouping and clustering. 
 In addition, we made a keypoint extraction pipeline that aims to extract the most relevant event in a movie. It works as follows: 
