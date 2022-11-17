@@ -36,7 +36,13 @@ This question can be split into two perspectives, each having their own subquest
 To quantify a movie's success across industries, we collect the IMDB rating of the movies we are interested in per industry and decade through IMDB python library that seem to be more precise and give less nones than the beautifulsoup alternative. It is possible at a later point to collect other information such as production compagny and a more detailed information on the revenue or characters.  
 
 ## Methods
-
+### NLP 
+For the NLP task, we take the plot summaries of movies and we first embedd them using the sentence transformer model [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2). This model has of advantage that it allows to detect the semantic difference in paragraphs and is light to encode and doesn't require a lot of computation. Following, we visualize through TSNE how the summary embeddings of 2 different genres differs and if there is an overlap in order to break it slowly into subgroups that might be distincts (decade, country of movies, rating). The current results shows that there is some overlap between romance and action and will be studied more in P3, where we will be performing grouping and clustering on them. 
+We as well made a keypoint extraction pipline that has of a goal to extract the most relevant event in a summary. It works as follow: 
+1. Break the summary into sentences
+2. Calculate the cosine similarity between each sentence's embeddings and perform page_rank to leave the sentences with the highest similarity score.
+3. Given the sentences chosen through page_rank, we perform a filtering to get the N (set by user) sentences that are more distinguished between one another and dont cover the same topic for it to be general.
+4. Congrats. that is the main event
 ## Proposed timeline
 
 ## Organization within the team
