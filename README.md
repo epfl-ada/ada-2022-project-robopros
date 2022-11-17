@@ -33,7 +33,7 @@ This question can be split into two perspectives, each having their own subquest
 
 ## Additional datasets (if any)
 
-IMDB ratings (@Ray if you can complement with exact source, perhaps format)
+To quantify a movie's success across industries, we collect the IMDB rating of the movies we are interested in per industry and decade through IMDB python library that seem to be more precise and give less nones than the beautifulsoup alternative. It is possible at a later point to collect other information such as production compagny and a more detailed information on the revenue or characters.  
 
 ## Methods
 
