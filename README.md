@@ -26,6 +26,11 @@ More precisely, the following research questions will be adressed:
 
 ## Questions for TA (if any)
 
+## Sources
+
+[1] “Global Box Office Down 72%, Digital Leads Home Entertainment in 2020,” Boxoffice, Mar. 26, 2021. https://www.boxofficepro.com/global-box-office-down-72-digital-leads-home-entertainment-in-2020/ (accessed Nov. 16, 2022).
+
+
 ---
 
 ## Setting up the project 
