@@ -1,4 +1,5 @@
 import pandas as pd
+from typing import Tuple, List
 
 
 def nmovies(df: pd.DataFrame) -> int:
@@ -50,3 +51,38 @@ def top_countries_nmovies(df: pd.DataFrame, n=10) -> pd.Series:
         .sort_values("Wikipedia_Movie_ID", ascending=False)
         .head(n)
     )
+
+
+def stats_age_by_country(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Get statistics of actors' ages grouped by countries.
+    """
+    return df.groupby('Movie_Countries')['Actor_Age_at_Movie_Release'].describe()
+
+
+def not_assigned_fb_ids(df: pd.DataFrame) -> List[str]:
+    """
+    Returns the not assigned Freebase IDs.
+    """
+    not_found_ethn = []
+    for ethn in df.Actor_Ethnicity.unique():
+        if '/' in ethn:
+            not_found_ethn.append(ethn)
+
+    return not_found_ethn
+
+
+def ethnicities_country(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Returns the number of different ethnicities grouped by countries.
+    """
+    return df.groupby(['Movie_Countries', 'decade']).Actor_Ethnicity.nunique()
+
+
+def max_min(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    """
+    Returns the minimum and maximum values grouped by country and decade.
+    """
+    min_v = df.groupby(['Movie_Countries', 'decade']).min(numeric_only=True)
+    max_v = df.groupby(['Movie_Countries', 'decade']).max(numeric_only=True)
+    return min_v, max_v
