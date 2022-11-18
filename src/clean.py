@@ -46,7 +46,7 @@ def keep_countries(df: pd.DataFrame, countries: Sequence[str]) -> pd.DataFrame:
     return df[df.Movie_Countries.isin(countries)]
 
 
-def add_countries_to_characters(
+def align_movie_countries(
     characters: pd.DataFrame, movies: pd.DataFrame
 ) -> pd.DataFrame:
     """
@@ -57,6 +57,20 @@ def add_countries_to_characters(
         movies[["Wikipedia_Movie_ID", "Movie_Countries"]]
         .drop_duplicates()
         .merge(characters, on="Wikipedia_Movie_ID")
+    )
+
+
+def align_year_and_decade(
+    summaries: pd.DataFrame, movies: pd.DataFrame
+) -> pd.DataFrame:
+    """
+    Aligns the year and decade columns from the movies dataframe to the summaries
+    dataframe.
+    """
+    return summaries.merge(
+        movies[["Wikipedia_Movie_ID", "year", "decade"]],
+        on="Wikipedia_Movie_ID",
+        how="inner",
     )
 
 
@@ -98,3 +112,7 @@ def add_year_and_decade(df: pd.DataFrame):
     """
     df["year"] = df.Movie_Release_Date.dt.year
     df["decade"] = df.year - (df.year % 10)
+
+
+def drop_undefined_actors(df: pd.DataFrame) -> pd.DataFrame:
+    return df[df.Freebase_Actor_ID.notna()]

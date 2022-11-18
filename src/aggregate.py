@@ -17,7 +17,7 @@ def ncharacters(df: pd.DataFrame) -> int:
     """
     Returns the number of characters in the given character metadata DataFrame.
     """
-    return len(df)
+    return df.Freebase_Char_ID.nunique()
 
 
 def nactors(df: pd.DataFrame) -> int:
