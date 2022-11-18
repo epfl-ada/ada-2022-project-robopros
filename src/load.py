@@ -1,5 +1,6 @@
 import pandas as pd
 import clean
+from typing import Tuple
 
 # Data directories
 DATA_DIR = "../data"
@@ -101,3 +102,44 @@ def character_types() -> pd.DataFrame:
     We will not use this DataFrame in our analysis.
     """
     return pd.read_csv(TVTROPES_CLUSTERS, sep="\t", names=TVTROPES_COLS)
+
+
+def release_birth_date(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Get data with missing information about the actors' ages but with information about the actors' date of
+    birth and the movie release date.
+    """
+    return df[df.Actor_Age_at_Movie_Release.isnull()].dropna(subset=['Actor_DOB', 'Movie_Release_Date'])
+
+
+def gender_ratio(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Calculate gender ratio (female / male) and save results in new dataframe.
+    """
+    grouped_gender = df.groupby(['decade', 'Movie_Countries'])
+    gr = grouped_gender['Actor_Gender_F'].sum().div(grouped_gender['Actor_Gender_M'].sum())
+    return pd.DataFrame(gr, columns=['Ratio F/M'])
+
+
+def indicator_mf(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    """
+    Split data with created indicator variables of male / female.
+    """
+    indicator = pd.get_dummies(df, columns=['Actor_Gender'])
+    female_age = indicator[indicator.Actor_Gender_F == 1]
+    male_age = indicator[indicator.Actor_Gender_M == 1]
+    return female_age, male_age
+
+
+def ethnicity_ratio(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Returns the ratio of number of unique ethnicities / number of actors (with data about their ethnicity).
+    """
+    return df.groupby(['Movie_Countries', 'decade']).Actor_Ethnicity.nunique().div(
+        df.groupby(['Movie_Countries', 'decade']).Actor_Ethnicity.count())
+
+
+def top_n_ethnic(df: pd.DataFrame, n: int) -> pd.DataFrame:
+    top_ethn = df.groupby('Movie_Countries').Actor_Ethnicity.value_counts()
+    top_ethn = top_ethn.groupby('Movie_Countries').nlargest(n).to_frame().droplevel(0)
+    return top_ethn.rename(columns={'Actor_Ethnicity': 'Count'})

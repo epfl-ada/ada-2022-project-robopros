@@ -1,5 +1,7 @@
 from typing import Sequence
 import pandas as pd
+import datetime
+from typing import List, Dict, Tuple
 
 
 def explode_dict(df: pd.DataFrame, column: str) -> pd.DataFrame:
@@ -46,7 +48,7 @@ def keep_countries(df: pd.DataFrame, countries: Sequence[str]) -> pd.DataFrame:
     return df[df.Movie_Countries.isin(countries)]
 
 
-def add_countries_to_characters(
+def align_movie_countries(
     characters: pd.DataFrame, movies: pd.DataFrame
 ) -> pd.DataFrame:
     """
@@ -60,13 +62,27 @@ def add_countries_to_characters(
     )
 
 
-def parse_dates(df: pd.DataFrame):
+def align_year_and_decade(
+    summaries: pd.DataFrame, movies: pd.DataFrame
+) -> pd.DataFrame:
     """
-    Parses movie release dates into datetime for the given DataFrame.
+    Aligns the year and decade columns from the movies dataframe to the summaries
+    dataframe.
+    """
+    return summaries.merge(
+        movies[["Wikipedia_Movie_ID", "year", "decade"]],
+        on="Wikipedia_Movie_ID",
+        how="inner",
+    )
+
+
+def parse_dates(df: pd.DataFrame, column):
+    """
+    Parses column dates into datetime for the given DataFrame.
     Note that this drops every row that has no movie release date.
     """
-    df["Movie_Release_Date"] = pd.to_datetime(df["Movie_Release_Date"])
-    return df[~df.Movie_Release_Date.isna()].copy()
+    df[column] = pd.to_datetime(df[column], format='%Y/%m/%d', errors='coerce')
+    return df[~df[column].isna()].copy()
 
 
 def date_differences(movies: pd.DataFrame, characters: pd.DataFrame) -> int:
@@ -98,3 +114,53 @@ def add_year_and_decade(df: pd.DataFrame):
     """
     df["year"] = df.Movie_Release_Date.dt.year
     df["decade"] = df.year - (df.year % 10)
+
+
+def drop_undefined_actors(df: pd.DataFrame) -> pd.DataFrame:
+    return df[df.Freebase_Actor_ID.notna()]
+
+
+def positive_age(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Filter out negative and missing age data.
+    """
+    return df[df.Actor_Age_at_Movie_Release > 0].dropna(subset='Actor_Age_at_Movie_Release').copy()
+
+
+def date_range(df1: pd.DataFrame, df2: pd.DataFrame) -> Tuple[pd.DataFrame, int]:
+    """
+    Remove data with inconsistent date formats.
+    """
+    remove_idx = df1[pd.to_datetime(df1.Actor_DOB, format='%Y/%m/%d', errors='coerce').isnull()].index
+    return df2.drop(labels=remove_idx, axis=0), remove_idx
+
+
+def calc_age(df1: pd.DataFrame, df2: pd.DataFrame, removed_idx: List[int]) -> pd.DataFrame:
+    """
+    Calculates the age of the actors based on date of birth and movie release date. Age is added to dataframe if it
+    was missing before.
+    """
+    def year_diff(d1: datetime.datetime, d2: datetime.datetime):
+        """
+        Calculates the difference of given years
+        """
+        return d1.year - d2.year
+
+    df1.Actor_Age_at_Movie_Release = df1.apply(lambda x: year_diff(x.Movie_Release_Date, x.Actor_DOB), axis=1)
+    try:
+        df1 = df1.drop(labels=removed_idx, axis=0)
+    except KeyError:
+        df1 = df1
+    df2.Actor_Age_at_Movie_Release.loc[df1.index] = df1.Actor_Age_at_Movie_Release
+    return df2.copy()
+
+
+def get_ethnicities(df: pd.DataFrame, freebase_ethnicity: List[Dict]) -> pd.DataFrame:
+    """
+    Creates mapping with JSON file and replaces Freebase IDs with corresponding terms for ethnic groups.
+    """
+    fb_map = {}
+    for item in freebase_ethnicity:
+        fb_map[item['freebaseID']] = item['itemLabel']
+
+    return df.replace({'Actor_Ethnicity': fb_map})
