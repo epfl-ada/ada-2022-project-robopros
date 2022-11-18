@@ -9,6 +9,8 @@ To keep the notebook clean we make use of python functions in our [src](src) fol
 - [clean.py](src/clean.py) = functions for cleaning our data
 - [load.py](src/load.py) = functions for loading the data in the appropriate dataframes
 - [plot.py](src/plot.py) = plotting function
+- [features.py](src/features.py) = extracting features of interest from out processed dataframes
+- [nlp_modules.py](src/nlp_modules.py) = helper functions for NLP processing
 
 ## Abstract
 
