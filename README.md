@@ -105,9 +105,28 @@ In addition, we made a keypoint extraction pipeline that aims to extract the mos
 
 ## Proposed timeline
 
+| Date | Goal |
+|-|-|
+| 25/11/2022 | Complete collection and cleaning of IMDB ratings and align them with datasets |
+| 30/11/2022 | (Continuing analyses and focus on Homework 2) |
+| 02/12/2022 | **Homework 2 deadline** |
+| 05/12/2022 | Complete all analyses |
+| 09/12/2022 | Draft the final datastory outline |
+| 16/12/2022 | Create all visualizations for datastory and complete final text |
+| 20/12/2022 | Complete GitHub pages datastory |
+| 23/12/2022 | **Milestone 3 deadline** |
+
+
 ## Organization within the team
 
-## Questions for TA (if any)
+| Team member | Responsibilities |
+|-|-|
+| Radia | Analyis of differences between movies, write data story final text |
+| Tim | Analysis of differences of actors over* |
+| Ray | Plot analyses using NLP and pagerank* |
+| Louis | Analysis with IMDB data, drafting data story outline, and creating website |
+
+*These are large tasks and therefore should require to full focus of a team member.
 
 ## Sources
 
