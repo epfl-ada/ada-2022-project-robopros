@@ -27,22 +27,35 @@ Our main research question is the following:
 This question can be split into two perspectives, each having its subquestions:
 
 1. Differences in movies
-   - todo
+   - What are the differences in typical movie attributes (main genres, typical durations) between industries?
+   - What are the differences in movie plots between industries? E.g., are action movies semantically similar across the world?
+   - Have these differences remained the same over time?
 2. Differences in actors
-   - todo
+   - Is the distribution of physical attributes (age, gender, height) the same across countries?
+   - Are there differences in diversity representations across countries?
+   - For these representations, is the effect of time or country stronger?
 
 ## Additional datasets (if any)
 
 To quantify a movie's success across industries, we collect the IMDB rating of the movies we are interested in per industry and decade through the IMDB python library which seems to be more precise and gives fewer nones than the beautifulsoup alternative. It is possible at a later point to collect other information such as production company and more detailed information on the revenue or characters.  
 
 ## Methods
+
 ### Datasets
-- Dataset D1: Dataset containing information about movies
-- Dataset D2: Dataset containing information about movie characters and the corresponding actors
-  - D2.1: Subset with available actors' ages
-  - D2.2: Subset with available actors' gender
-  - D2.3: Subset with available actors' ethnicities
-  - D2.4: Subset with available actors' heights
+
+We make use of the following raw datasets:
+- `movie.metadata.tsv`: movie metadata
+- `character.metadata.tsv`: character and actor metadata
+- `plot_summaries.txt`: movie plots
+
+And split it into the following datasets:
+- Dataset D1: Dataset containing metadata about movies (movie duration, genres, country, ...). This dataset will also be used to group our data by country and by date.
+- Dataset D2: Dataset containing the movie plots, aligned with country and date.
+- Dataset D3: Dataset containing information about movie characters and the corresponding actors, aligned with country and date.
+  - D3.1: Subset with available actors' ages
+  - D3.2: Subset with available actors' gender
+  - D3.3: Subset with available actors' ethnicities
+  - D3.4: Subset with available actors' heights
 
 ### Diversity Analysis
 Since the data contains more information from Hollywood movies than any other movie industry, the analysis has to be
@@ -74,6 +87,7 @@ In addition, we made a keypoint extraction pipeline that aims to extract the mos
 2. Calculate the cosine similarity between each sentence's embeddings and perform page_rank to leave the sentences with the highest similarity score.
 3. Given the sentences chosen through page_rank, we perform filtering to get the N (set by user) sentences that are more distinguished from one another and don't cover the same topic for them to be general.
 4. Congrats. that is the main event.
+
 ## Proposed timeline
 
 ## Organization within the team
