@@ -64,6 +64,16 @@ Categorical data like ethnicity and gender are compared with ratios.
 In general the data is prepared to find possible correlations later on with other gained insights e.g. success metrics
 of the movies.
 
+### Trends in movie industries analysis
+
+We want to see how different features of movies in different countries have evolved overtime. 
+
+- Runtimes: We want to see if movie runtimes of difference countries are significantly different. We also want to see the trend of the movie runtimes overtimes of the selected countries. Before analysis, we conducted some filtering. For the movies with short runtimes, we checked for potential errors and verified that those runtimes were indeed valid. On the other hand, for “super long” movies, we could not verify the length of the longest movie in the dataset. Additionally, we noticed movies above 300 mins were experimental movies and thus outliers. Therefore, we decided to exclude these long movies and the movies with missing runtime data from our analysis.
+
+- Revenue: It would have been interesting to see the revenue trend across the major industries overtime. Also, the revenue across the genres. Unfortunately, for majority of the movies (83.8%), the revenue data were unavailable. Moreover, there would be unknown cofounders like inflation overtime in different countries. Therefore, we decided not to do any further analysis on revenue. 
+
+- Genres: We would like to see the distribution of different genres in different countries. For example, movies of which genres are produced the most by the selected countries. We would only focus on the top 10 genres for each country. Furthermore, we would like to see how the top 10 genres changed overtime for each country. Finally, overtime if the distribution of genres converged or diverged for the selected countries. 
+
 ### NLP 
 For the NLP task, we take the plot summaries of movies and we first embed them using the sentence transformer model [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2). This model has of advantage, in that it allows the detection of semantic differences in paragraphs and is light to encode, and doesn't require a lot of computation. Following, we visualize through TSNE how the summary embeddings of 2 different genres differ and if there is an overlap to break it slowly into subgroups that might be distinct (decade, country of movies, rating). The current results show that there is some overlap between romance and action and will be studied more in P3, where we will be performing grouping and clustering. 
 In addition, we made a keypoint extraction pipeline that aims to extract the most relevant event in a movie. It works as follows: 
