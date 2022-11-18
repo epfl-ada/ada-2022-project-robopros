@@ -61,15 +61,17 @@ And split it into the following datasets:
 
 ### Trends In Movie Industries Analysis
 
-We want to see how different features of movies in different countries have evolved overtime. 
+We want to see how different features of movies in different countries have evolved over time. 
 
-- Runtimes: We want to see if movie runtimes of difference countries are significantly different. We also want to see the trend of the movie runtimes overtimes of the selected countries. Before analysis, we conducted some filtering. For the movies with short runtimes, we checked for potential errors and verified that those runtimes were indeed valid. On the other hand, for “super long” movies, we could not verify the length of the longest movie in the dataset. Additionally, we noticed movies above 300 mins were experimental movies and thus outliers. Therefore, we decided to exclude these long movies and the movies with missing runtime data from our analysis.
+- Runtimes: We want to see whether movie runtimes of different countries are significantly different. We also want to see the trend of the movie runtimes over time of the selected countries. Before analysis, we conducted some filtering. For the movies with short runtimes, we checked for potential errors and verified that those runtimes were indeed valid. On the other hand, for “super long” movies, we could not verify the length of the longest movie in the dataset. Additionally, we noticed movies above 300 mins were experimental movies and thus outliers. Therefore, we decided to exclude these long movies and the movies with missing runtime data from our analysis. We will subsequently use statistical tests to find potential differences.
 
-- Revenue: It would have been interesting to see the revenue trend across the major industries overtime. Also, the revenue across the genres. Unfortunately, for majority of the movies (83.8%), the revenue data were unavailable. Moreover, there would be unknown cofounders like inflation overtime in different countries. Therefore, we decided not to do any further analysis on revenue. 
+- Revenue: The majority of the revenue of the movies is missing (83.3%).
+Moreover, there are many potential outside cofounders like inflation over time in across countries. Finally, the revenue of movies does not tell us much about the types of movies made. Therefore, we decided not to do any further analysis on revenue. 
 
-- Genres: We would like to see the distribution of different genres in different countries. For example, movies of which genres are produced the most by the selected countries. We would only focus on the top 10 genres for each country. Furthermore, we would like to see how the top 10 genres changed overtime for each country. Finally, overtime if the distribution of genres converged or diverged for the selected countries.
+- Genres: We would like to see the distribution of different genres in different countries. This could be on one hand the most frequently produced genres, but we will also align the genres with the average ratings from IMDB to compare the most popular genres. We can then visualize whether the distribution of genres converged or diverged for the selected countries.
 
 ### Diversity Analysis
+
 Since the data contains more information from Hollywood movies than any other movie industry, the analysis has to be
 adjusted by looking at the big 5 movie industries separately and by comparing their relative numbers. The data is
 enriched with information about the decade so that the development over the years can be analyzed. The preprocessing
@@ -92,13 +94,14 @@ In general the data is prepared to find possible correlations later on with othe
 of the movies. The different chosen measures for diversity can be combined by using a weighted average depending on how
 much data was available or by using regression as a descriptive data analysis tool.  
 
-### NLP 
-For the NLP task, we take the plot summaries of movies and we first embed them using the sentence transformer model [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2). This model has of advantage, in that it allows the detection of semantic differences in paragraphs and is light to encode, and doesn't require a lot of computation. Following, we visualize through TSNE how the summary embeddings of 2 different genres differ and if there is an overlap to break it slowly into subgroups that might be distinct (decade, country of movies, rating). The current results show that there is some overlap between romance and action and will be studied more in P3, where we will be performing grouping and clustering. 
+### Movie plots
+
+To compare movie plots across countries over time we will make use of NLP techniques. We first embed them using the sentence transformer model [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2). This model enables us to identify the semantic differences in paragraphs while being light to encode, and requiring little computation. Next, we visualize through TSNE how the summary embeddings of 2 different genres differ and whether there is an overlap to break it slowly into subgroups that might be distinct (decade, country of movies, rating). The current results show that there is some overlap between romance and action and will be studied more in P3, where we will be performing grouping and clustering. 
 In addition, we made a keypoint extraction pipeline that aims to extract the most relevant event in a movie. It works as follows: 
 1. Break the summary into sentences.
 2. Calculate the cosine similarity between each sentence's embeddings and perform page_rank to leave the sentences with the highest similarity score.
 3. Given the sentences chosen through page_rank, we perform filtering to get the N (set by user) sentences that are more distinguished from one another and don't cover the same topic for them to be general.
-4. Congrats. that is the main event.
+4. This gives us the main event.
 
 ## Proposed timeline
 
