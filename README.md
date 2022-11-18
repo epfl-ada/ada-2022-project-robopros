@@ -39,7 +39,7 @@ This question can be split into two perspectives, each having its subquestions:
 
 ## Additional datasets (if any)
 
-To quantify a movie's success across industries, we collect the IMDB rating of the movies we are interested in per industry and decade through the IMDB python library which seems to be more precise and gives fewer nones than the beautifulsoup alternative. It is possible at a later point to collect other information such as production company and more detailed information on the revenue or characters.  
+To quantify a movie's success across industries, we collect the IMDB rating of the movies we are interested in per industry and decade through the IMDBPY python library (currently switched to be [cinemagoer](https://cinemagoer.github.io/) ) which seems to be more precise and gives fewer nones than the beautifulsoup alternative. It is possible at a later point to collect other information such as production company and more detailed information on the revenue or characters.  
 
 ## Methods
 
