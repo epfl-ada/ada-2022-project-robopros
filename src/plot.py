@@ -81,11 +81,19 @@ def ethnic_ratio_countries(df: pd.DataFrame):
     Creates 5 figures comparing the distribution of the top 5 ethnic groups for each country.
     The distributions are visualized as barplots.
     """
+    data_max = df.max().Fraction
+
     ax1 = plt.subplot2grid(shape=(2, 6), loc=(0, 0), colspan=2)
     ax2 = plt.subplot2grid((2, 6), (0, 2), colspan=2)
     ax3 = plt.subplot2grid((2, 6), (0, 4), colspan=2)
     ax4 = plt.subplot2grid((2, 6), (1, 1), colspan=2)
     ax5 = plt.subplot2grid((2, 6), (1, 3), colspan=2)
+
+    ax1.set_ylim([0 - data_max / 10, data_max + data_max / 10])
+    ax2.set_ylim([0 - data_max / 10, data_max + data_max / 10])
+    ax3.set_ylim([0 - data_max / 10, data_max + data_max / 10])
+    ax4.set_ylim([0 - data_max / 10, data_max + data_max / 10])
+    ax5.set_ylim([0 - data_max / 10, data_max + data_max / 10])
 
     df.loc['France'].plot(kind='bar', title='France', ax=ax1)
     df.loc['India'].plot(kind='bar', title='India', ax=ax2)
