@@ -218,3 +218,5 @@ def diversity(div_fr: pd.DataFrame, div_in: pd.DataFrame, div_jp: pd.DataFrame,
     plt.subplots_adjust(hspace=2, wspace=15)
     plt.suptitle("Diversity in the Big 5 Movie Industries")
     plt.show()
+    
+
