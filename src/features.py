@@ -27,3 +27,17 @@ def runtimes(movies: pd.DataFrame) -> pd.DataFrame:
     )
 
     return runtimes
+
+
+def country_split(df: pd.DataFrame, feature) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame,
+                                                      pd.DataFrame]:
+    """
+    Split the dataframe into 5 different dataframes, one for each country.
+    """
+    df_fr = df[df.Movie_Countries == 'France'][feature]
+    df_jp = df[df.Movie_Countries == 'Japan'][feature]
+    df_in = df[df.Movie_Countries == 'India'][feature]
+    df_uk = df[df.Movie_Countries == 'United Kingdom'][feature]
+    df_us = df[df.Movie_Countries == 'United States of America'][feature]
+
+    return df_fr, df_jp, df_in, df_uk, df_us
