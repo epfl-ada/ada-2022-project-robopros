@@ -1,5 +1,6 @@
 import pandas as pd
 import aggregate
+from typing import Tuple
 
 
 def runtimes(movies: pd.DataFrame) -> pd.DataFrame:

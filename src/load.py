@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import clean
 from typing import Tuple
@@ -140,6 +141,52 @@ def ethnicity_ratio(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def top_n_ethnic(df: pd.DataFrame, n: int) -> pd.DataFrame:
+    """
+    Returns the top n ethnic groups.
+    """
     top_ethn = df.groupby('Movie_Countries').Actor_Ethnicity.value_counts()
     top_ethn = top_ethn.groupby('Movie_Countries').nlargest(n).to_frame().droplevel(0)
     return top_ethn.rename(columns={'Actor_Ethnicity': 'Count'})
+
+
+def std_full(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Create a proper dataframe to apply linear regression.
+    """
+    age_diversity = pd.DataFrame(df.values, columns=['std'])
+    decades = [1950, 1960, 1970, 1980, 1990, 2000, 2010,
+               1950, 1960, 1970, 1980, 1990, 2000, 2010,
+               1950, 1960, 1970, 1980, 1990, 2000, 2010,
+               1950, 1960, 1970, 1980, 1990, 2000, 2010,
+               1950, 1960, 1970, 1980, 1990, 2000, 2010]
+    countries = ['France', 'France', 'France', 'France', 'France', 'France', 'France',
+                 'India', 'India', 'India', 'India', 'India', 'India', 'India',
+                 'Japan', 'Japan', 'Japan', 'Japan', 'Japan', 'Japan', 'Japan',
+                 'UK', 'UK', 'UK', 'UK', 'UK', 'UK', 'UK',
+                 'US', 'US', 'US', 'US', 'US', 'US', 'US']
+    age_diversity['decade'] = decades
+    age_diversity['countries'] = countries
+    return age_diversity
+
+
+def contingency_table(df: pd.DataFrame):
+    """
+    Creates contingency table for chi-squared test.
+    """
+    observed_m = df.groupby('Movie_Countries').Actor_Gender_M.sum().to_numpy().reshape(1, -1)
+    observed_f = df.groupby('Movie_Countries').Actor_Gender_F.sum().to_numpy().reshape(1, -1)
+    observed = np.concatenate((observed_m, observed_f), axis=0)
+    return observed
+
+
+def diversity_full(div_fr: pd.DataFrame, div_in: pd.DataFrame, div_jp: pd.DataFrame,
+                   div_uk: pd.DataFrame, div_us: pd.DataFrame) -> pd.DataFrame:
+    countries = ['France', 'France', 'France', 'France', 'France', 'France', 'France',
+                 'India', 'India', 'India', 'India', 'India', 'India', 'India',
+                 'Japan', 'Japan', 'Japan', 'Japan', 'Japan', 'Japan', 'Japan',
+                 'UK', 'UK', 'UK', 'UK', 'UK', 'UK', 'UK',
+                 'US', 'US', 'US', 'US', 'US', 'US', 'US']
+    combined = pd.concat((div_fr, div_in, div_jp, div_uk, div_us))
+    total_div = pd.DataFrame(combined, columns=['diversity']).reset_index()
+    total_div['countries'] = countries
+    return total_div
