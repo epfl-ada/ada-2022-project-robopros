@@ -4,7 +4,7 @@ From Hollywood to Bollywood, an analysis of film industries across time (or we c
 
 # Main body:
 
-### Introduction:
+## Introduction:
 
 Cinema made its debut in the late 19th century [1] and has become a multibillion-dollar industry, distributed over many different countries, and therefore made subject to distinct cultures and trends. Using the CMU Movie Summary Corpus, a collection of 42.306 movie plot summaries extracted from Wikipedia, aligned with movie and character metadata, we take a trip through time to take a look at these trends and how they have (or have not) differed across the world.
 We will analyze movies from some of the largest film industries (aka the Big Five) - namely the United States, India, United Kingdom, Japan, and France [2] - from the 1950s to the 2010s. However, many movies are combined production of more than one country. For the purpose of our analysis, we will only explore movies coming from single country. 
@@ -15,9 +15,9 @@ One of main questions is to decipher how the movie plots in the Big Five industr
 
 On the other hand, we are also curious about the characters playing the leading roles in the movies. Most importantly, we want to see how diverse the characters are from different perspectives (age, gender, ethnicity, physical features). 
 
-### Romance and Action are not the same (or some other key insights we find from the analysis)/ Are genres really different?
+## Romance and Action are not the same (or some other key insights we find from the analysis)/ Are genres really different?
 
-### Who is making the longest movies?
+## Who is making the longest movies?
 
 Even though in common knowledge it might appear that movies all over the world would be similar length. However, from our analysis it was clear that one county is definitely leading in making the longest movies. India – is not only one of the biggest countries in the world, but they are also making the longest movies. The runtimes were significantly long. The median length of Indian (aka Bollywood) movies is about 144 minutes, whereas the median length of movies from the rest of the Big Five industries is between 91 to 96 minutes. 
 
@@ -27,9 +27,9 @@ It is also interesting to see if the runtimes across the Big Five industries evo
 
 (Maybe add a plot here too?) 
 
-### Which Big Five is the most diverse?
+## Which Big Five is the most diverse?
 
-### Sources
+# Sources
 
 [1] S. Pruitt, “The Lumière Brothers, Pioneers of Cinema,” HISTORY. https://www.history.com/news/the-lumiere-brothers-pioneers-of-cinema (accessed Nov. 17, 2022).
 
