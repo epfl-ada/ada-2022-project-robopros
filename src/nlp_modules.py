@@ -1,8 +1,11 @@
 from sklearn.cluster import AgglomerativeClustering
 from sklearn.metrics.pairwise import cosine_similarity
 from scipy import sparse
+from sentence_transformers import SentenceTransformer, util
 from fast_pagerank import pagerank
 import numpy as np
+from transformers import logging
+logging.set_verbosity_error()
 
 def gen_match_matrix(model, sents, min_match_score=0):
     """Generate a matrix of sentence matches for a list of sentences"""
@@ -37,7 +40,7 @@ def filter_ranked_list(ranked_sents, model, min_match=0.8, N=3):
     return filtered_sents
 
 
-def apply_page_rank(sentences, p=0.85, min_match_score=0.5, min_len=5, max_len=35):
+def apply_page_rank(sentences, model, p=0.85, min_match_score=0.5, min_len=5, max_len=35):
     """Apply page rank to a list of sentences
     min_match_score: minimum similarity score for two sentences to be considered similar
     min_len: minimum length of a sentence
