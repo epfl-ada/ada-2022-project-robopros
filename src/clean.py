@@ -101,7 +101,7 @@ def parse_dates(df: pd.DataFrame, column):
     Parses column dates into datetime for the given DataFrame.
     Note that this drops every row that has no movie release date.
     """
-    df[column] = pd.to_datetime(df[column], format='%Y/%m/%d', errors='coerce')
+    df[column] = pd.to_datetime(df[column], format="%Y/%m/%d", errors="coerce")
     return df[~df[column].isna()].copy()
 
 
@@ -144,29 +144,40 @@ def positive_age(df: pd.DataFrame) -> pd.DataFrame:
     """
     Filter out negative and missing age data.
     """
-    return df[df.Actor_Age_at_Movie_Release > 0].dropna(subset='Actor_Age_at_Movie_Release').copy()
+    return (
+        df[df.Actor_Age_at_Movie_Release > 0]
+        .dropna(subset="Actor_Age_at_Movie_Release")
+        .copy()
+    )
 
 
 def date_range(df1: pd.DataFrame, df2: pd.DataFrame) -> Tuple[pd.DataFrame, int]:
     """
     Remove data with inconsistent date formats.
     """
-    remove_idx = df1[pd.to_datetime(df1.Actor_DOB, format='%Y/%m/%d', errors='coerce').isnull()].index
+    remove_idx = df1[
+        pd.to_datetime(df1.Actor_DOB, format="%Y/%m/%d", errors="coerce").isnull()
+    ].index
     return df2.drop(labels=remove_idx, axis=0), remove_idx
 
 
-def calc_age(df1: pd.DataFrame, df2: pd.DataFrame, removed_idx: List[int]) -> pd.DataFrame:
+def calc_age(
+    df1: pd.DataFrame, df2: pd.DataFrame, removed_idx: List[int]
+) -> pd.DataFrame:
     """
     Calculates the age of the actors based on date of birth and movie release date. Age is added to dataframe if it
     was missing before.
     """
+
     def year_diff(d1: datetime.datetime, d2: datetime.datetime):
         """
         Calculates the difference of given years
         """
         return d1.year - d2.year
 
-    df1.Actor_Age_at_Movie_Release = df1.apply(lambda x: year_diff(x.Movie_Release_Date, x.Actor_DOB), axis=1)
+    df1.Actor_Age_at_Movie_Release = df1.apply(
+        lambda x: year_diff(x.Movie_Release_Date, x.Actor_DOB), axis=1
+    )
     try:
         df1 = df1.drop(labels=removed_idx, axis=0)
     except KeyError:
@@ -175,12 +186,29 @@ def calc_age(df1: pd.DataFrame, df2: pd.DataFrame, removed_idx: List[int]) -> pd
     return df2.copy()
 
 
+def apply_computed_age(original: pd.DataFrame, computed: pd.DataFrame):
+    def year_diff(d1: datetime.datetime, d2: datetime.datetime):
+        """
+        Calculates the difference of given years
+        """
+        return d1.year - d2.year
+
+    computed["Actor_Age_at_Movie_Release"] = computed.apply(
+        lambda x: year_diff(x.Movie_Release_Date, x.Actor_DOB), axis=1
+    )
+    result = original.copy()
+    result.loc[
+        computed.index, "Actor_Age_at_Movie_Release"
+    ] = computed.Actor_Age_at_Movie_Release
+    return result
+
+
 def get_ethnicities(df: pd.DataFrame, freebase_ethnicity: List[Dict]) -> pd.DataFrame:
     """
     Creates mapping with JSON file and replaces Freebase IDs with corresponding terms for ethnic groups.
     """
     fb_map = {}
     for item in freebase_ethnicity:
-        fb_map[item['freebaseID']] = item['itemLabel']
+        fb_map[item["freebaseID"]] = item["itemLabel"]
 
-    return df.replace({'Actor_Ethnicity': fb_map})
+    return df.replace({"Actor_Ethnicity": fb_map})
