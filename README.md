@@ -2,7 +2,9 @@
 
 **Project structure (reference for grading)**
 
-Milestone 2 notebook: [notebooks/milestone2.ipynb](notebooks/milestone2.ipynb)
+Final (milestone 3) notebook: [notebooks/milestone3.ipynb](notebooks/milestone3.ipynb)
+
+Website: https://louisgevers.github.io/ada-robopros-website/
 
 To keep the notebook clean we make use of python functions in our [src](src) folder. For exact implementation details refer to:
 - [aggregate.py](src/aggregate.py) = functions for aggregate statistics on our dataframes (e.g. number of movies)
@@ -129,16 +131,14 @@ It operates as following
 | 23/12/2022 | **Milestone 3 deadline** |
 
 
-## Organization within the team
+## Team contributions
 
 | Team member | Responsibilities |
 |-|-|
-| Radia | Analyis of differences between movies, write data story final text |
-| Tim | Analysis of differences of actors over* |
-| Ray | Plot analyses using NLP and pagerank* |
-| Louis | Analysis with IMDB data, drafting data story outline, and creating website |
-
-*These are large tasks and therefore should require to full focus of a team member.
+| Radia | Analyis of differences between movies, datastory |
+| Tim | Diversity analysis of actors (age, height, gender, ethnicity, combined) |
+| Ray | Analysis of movie summaries using NLP |
+| Louis | Data wrangling and pipeline setup, create website, datastory |
 
 ## Sources
 
