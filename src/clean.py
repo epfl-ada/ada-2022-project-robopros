@@ -47,6 +47,13 @@ def keep_countries(df: pd.DataFrame, countries: Sequence[str]) -> pd.DataFrame:
     """
     return df[df.Movie_Countries.isin(countries)]
 
+def drop_duplicate_name(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Drop all movies title that are duplicate.
+    """
+    return df.drop_duplicates(subset=['Movie_Name'])
+
+
 
 def align_movie_countries(
     characters: pd.DataFrame, movies: pd.DataFrame
@@ -71,6 +78,19 @@ def align_year_and_decade(
     """
     return summaries.merge(
         movies[["Wikipedia_Movie_ID", "year", "decade"]],
+        on="Wikipedia_Movie_ID",
+        how="inner",
+    )
+
+def align_genres_and_name(
+    summaries: pd.DataFrame, movies: pd.DataFrame
+) -> pd.DataFrame:
+    """
+    Aligns the year and decade columns from the movies dataframe to the summaries
+    dataframe.
+    """
+    return summaries.merge(
+        movies[["Wikipedia_Movie_ID", "Movie_Genres","Movie_Name"]],
         on="Wikipedia_Movie_ID",
         how="inner",
     )
