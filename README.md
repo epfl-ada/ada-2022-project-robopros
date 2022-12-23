@@ -1,4 +1,4 @@
-# From Hollywood to Bollywood, an analysis of film industries across time.
+# Globywood: the story of movie industries across time.
 
 **Project structure (reference for grading)**
 
