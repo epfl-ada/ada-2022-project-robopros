@@ -26,7 +26,7 @@ Our main research question is the following:
 
 *"What are the differences between the largest movie industries and how have they changed over time?"*
 
-This question can be split into two perspectives, each having its subquestions:
+This question can be split into three perspectives, each having its subquestions:
 
 1. Differences in movies
    - What are the differences in typical movie attributes (main genres, typical durations) between industries?
@@ -36,10 +36,10 @@ This question can be split into two perspectives, each having its subquestions:
    - Is the distribution of physical attributes (age, gender, height) the same across countries?
    - Are there differences in diversity representations across countries?
    - For these representations, is the effect of time or country stronger?
-
-## Additional datasets (if any)
-
-To quantify a movie's success across industries, we collect the IMDB rating of the movies we are interested in per industry and decade through the IMDBPY python library (currently switched to be [cinemagoer](https://cinemagoer.github.io/) ) which seems to be more precise and gives fewer nones than the beautifulsoup alternative. It is possible at a later point to collect other information such as production company and more detailed information on the revenue or characters.  
+3. Differences in plot summaries
+   - How does the lexic used to write the summaries look like?
+   - Whate are the specification of plot summaries across different attributes (decades, industries, country)
+ 
 
 ## Methods
 
@@ -96,12 +96,24 @@ much data was available or by using regression as a descriptive data analysis to
 
 ### Movie plots
 
-To compare movie plots across countries over time we will make use of NLP techniques. We first embed them using the sentence transformer model [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2). This model enables us to identify the semantic differences in paragraphs while being light to encode, and requiring little computation. Next, we visualize through TSNE how the summary embeddings of 2 different genres differ and whether there is an overlap to break it slowly into subgroups that might be distinct (decade, country of movies, rating). The current results show that there is some overlap between romance and action and will be studied more in P3, where we will be performing grouping and clustering. 
-In addition, we made a keypoint extraction pipeline that aims to extract the most relevant event in a movie. It works as follows: 
+To compare movie plots across countries over time we will make use of NLP techniques.
+
+First, we study the frequent words used across the plots for different decades, industries and countries.
+
+
+In addition we embed the plots using the sentence transformer model [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2). This model enables us to identify the semantic differences in paragraphs while being light to encode, and requiring little computation. 
+
+We use later on TSNE on the embeddings to be able to visualize and understand the relationships between embeddings in a continous vector space. This allow us to determine if there is a difference between decades, countries, genres and how they are affected across different attributes.
+
+Overall, this approach has the potential to give you a deeper understanding of the similarities and differences between movie plots across different time periods, industries, and countries.
+
+In this work, we provide as well a method to extract keypoint from plots. This can be used in 2 different areas, namely to either extract a key point from a plot or from a set of plots. Our approach guarantee that we dont get repetitive kp and to have them general the more we input different sentences as we are computing 1:1 cosine similarity between each sentence embeddings and filter to get the candidates to be as distinct as possible from other kp candidates. 
+
+It operates as following
 1. Break the summary into sentences.
 2. Calculate the cosine similarity between each sentence's embeddings and perform page_rank to leave the sentences with the highest similarity score.
 3. Given the sentences chosen through page_rank, we perform filtering to get the N (set by user) sentences that are more distinguished from one another and don't cover the same topic for them to be general.
-4. This gives us the main event.
+4. This gives us the main X keypoint in order.
 
 ## Proposed timeline
 
